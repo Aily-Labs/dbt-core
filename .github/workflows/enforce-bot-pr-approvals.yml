@@ -1,0 +1,36 @@
+name: Enforce Bot PR Approvals
+
+on:
+  pull_request:
+    types: [synchronize]
+  pull_request_review:
+    types: [submitted]
+  merge_group:
+
+permissions:
+  pull-requests: read
+
+jobs:
+  # Auto-pass in merge queue — approvals were already validated before entering the queue
+  merge-queue-pass:
+    if: github.event_name == 'merge_group'
+    name: enforce-approvals / Check Bot PR Approvals
+    runs-on: aily-runner-python
+    steps:
+      - run: echo "✅ Skipping approval check in merge queue — already validated."
+
+  # Auto-pass on synchronize — enforcement is handled by pull_request_review.
+  # GitHub requires ALL check runs with this name on the same SHA to pass,
+  # so the pull_request_review check must also pass before merging is allowed.
+  sync-pass:
+    if: github.event_name == 'pull_request'
+    name: enforce-approvals / Check Bot PR Approvals
+    runs-on: aily-runner-python
+    steps:
+      - run: echo "✅ Branch updated — pull_request_review will enforce approvals on this commit."
+
+  enforce-approvals:
+    if: github.event_name == 'pull_request_review'
+    uses: Aily-Labs/aily-shared-workflows/.github/workflows/enforce-bot-pr-approvals.yaml@main
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
