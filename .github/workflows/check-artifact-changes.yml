@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   check-artifact-changes:
-    runs-on: ${{ vars.UBUNTU_LATEST }}
+    runs-on: aily-runner-small
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'artifact_minor_upgrade') }}
     steps:
       - name: Checkout code

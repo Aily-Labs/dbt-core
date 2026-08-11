@@ -56,7 +56,7 @@ env:
 jobs:
   prep_work:
     name: "Prep Work"
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
     steps:
       - name: "[DEBUG] Print Inputs"
         run: |
@@ -66,7 +66,7 @@ jobs:
 
   create_temp_branch:
     name: "Create Temp branch off main"
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
     outputs:
       temp_branch_name: ${{ steps.variables.outputs.BRANCH_NAME }}
 
@@ -99,7 +99,7 @@ jobs:
   cleanup_changelog:
     name: "Clean Up Changelog"
     needs: ["create_temp_branch"]
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
     outputs:
       next-version: ${{ steps.semver-current.outputs.next-minor-alpha-version }}
 
@@ -178,7 +178,7 @@ jobs:
   bump_version:
     name: "Bump to next minor version"
     needs: ["cleanup_changelog", "create_temp_branch"]
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
 
     steps:
       - name: "Checkout ${{ github.repository }}"
@@ -229,7 +229,7 @@ jobs:
   cleanup:
     name: "Cleanup Code Quality"
     needs: ["create_temp_branch", "bump_version"]
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
     steps:
       - name: "Checkout ${{ github.repository }}"
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # actions/checkout@v4
@@ -271,7 +271,7 @@ jobs:
   open_pr:
     name: "Open PR Against main"
     needs: ["cleanup_changelog", "create_temp_branch", "cleanup"]
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
     outputs:
       pr_number: ${{ steps.create_pr.outputs.pull-request-number }}
 
@@ -322,7 +322,7 @@ jobs:
     # don't cut the new branch until we're done opening the PR against main
     name: "Cut New Branch ${{ inputs.new_branch_name }}"
     needs: [open_pr]
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
 
     steps:
       - name: "Checkout ${{ github.repository }}"

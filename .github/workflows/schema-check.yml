@@ -37,7 +37,7 @@ env:
 jobs:
   checking-schemas:
     name: "Post-merge schema changes required"
-    runs-on: ${{ vars.UBUNTU_LATEST }}
+    runs-on: aily-runner-small
 
     steps:
       - name: Set up Python

@@ -31,7 +31,7 @@ env:
 
 jobs:
   aggregate-release-data:
-    runs-on: ${{ vars.UBUNTU_LATEST }}
+    runs-on: aily-runner-small
 
     outputs:
       version_number: ${{ steps.nightly-release-version.outputs.number }}

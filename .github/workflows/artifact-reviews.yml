@@ -34,7 +34,7 @@ env:
 jobs:
   check-reviews:
     name: "Validate Additional Reviews"
-    runs-on: ubuntu-latest
+    runs-on: aily-runner-small
     steps:
       - name: "Get list of changed files"
         id: changed_files
