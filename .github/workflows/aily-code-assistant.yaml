@@ -48,7 +48,7 @@ jobs:
       (github.event_name == 'pull_request') ||
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'workflow_dispatch' && inputs.reviewer == 'claude')
-    uses: Aily-Labs/aily-shared-workflows/.github/workflows/aily-claude-code-action.yaml@claude-code-v1
+    uses: Aily-Labs/aily-shared-workflows/.github/workflows/aily-claude-code-action.yaml@claude-code-v2
     secrets:
       AILY_CLAUDE_APP_ID: ${{ secrets.AILY_CLAUDE_APP_ID }}
       AILY_CLAUDE_PRIVATE_KEY: ${{ secrets.AILY_CLAUDE_PRIVATE_KEY }}
@@ -62,15 +62,12 @@ jobs:
       pr_number: ${{ github.event.pull_request.number || github.event.issue.number || '' }}
       comment_id: ${{ github.event.comment.id || '' }}
       mcp_servers: 'aily-mcp-slack'
-      mcp_allowed_tools: >-
-        mcp__aily-mcp-slack__slack_send_private_message,
-        mcp__aily-mcp-slack__slack_get_thread_messages
 
   codex:
     if: >
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@codex')) ||
       (github.event_name == 'workflow_dispatch' && inputs.reviewer == 'codex')
-    uses: Aily-Labs/aily-shared-workflows/.github/workflows/aily-codex-action.yaml@codex-v1
+    uses: Aily-Labs/aily-shared-workflows/.github/workflows/aily-codex-action.yaml@codex-v2
     secrets:
       CODEX_APP_ID: ${{ secrets.CODEX_APP_ID }}
       CODEX_APP_PRIVATE_KEY: ${{ secrets.CODEX_APP_PRIVATE_KEY }}
