@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   auto-response:
-    runs-on: ${{ vars.UBUNTU_LATEST }}
+    runs-on: aily-runner-small
     steps:
       - name: Check if current date is within holiday period
         id: date-check

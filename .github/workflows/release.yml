@@ -78,7 +78,7 @@ env:
 jobs:
   job-setup:
     name: Log Inputs
-    runs-on: ${{ vars.UBUNTU_LATEST }}
+    runs-on: aily-runner-small
     outputs:
       use_hatch: ${{ steps.use_hatch.outputs.use_hatch }}
     steps:
@@ -139,7 +139,7 @@ jobs:
 
     needs: [bump-version-generate-changelog]
 
-    runs-on: ${{ vars.UBUNTU_LATEST }}
+    runs-on: aily-runner-small
 
     steps:
       - name: Print variables
